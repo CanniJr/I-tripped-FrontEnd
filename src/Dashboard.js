@@ -3,6 +3,7 @@ import React from 'react'
 function Dashboard(props){
    
     function handleLogout(e){
+        console.log(props)
         e.preventDefault();
         props.setUser(null);
         props.history.push("/login");
