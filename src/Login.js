@@ -1,4 +1,5 @@
 import React from 'react'
+import { withRouter } from 'react-router-dom'
 
 class Login extends React.Component{
 
@@ -16,6 +17,9 @@ class Login extends React.Component{
         this.props.loginHandler(this.state)
     }
 
+    // componentDidMount() {
+    //     this.props.clearLogin()
+    // }
 
     render(){
         return(
@@ -31,10 +35,11 @@ class Login extends React.Component{
                     </form>
                 </div>
                 <p>New to this page? <button>Sign Up</button></p>
+                <button  onClick={() => this.props.logoutHandler()}>Logout</button>
             </div>
         )
     }
 
 }
 
-export default Login
+export default withRouter(Login)

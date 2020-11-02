@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch, withRouter } from 'react-router-dom'
 import Login from './Login'
 import Signup from './Signup'
 import Dashboard from './Dashboard'
@@ -17,12 +17,12 @@ class App extends React.Component{
 
   state = {
     user: "",
-    signUp: false
+    isLoggedIn: false
   } 
 
-  setUser = inputUser => {
-    this.setState({user: inputUser})
-  }
+  // setUser = inputUser => {
+  //   this.setState({user: inputUser})
+  // }
 
   loginHandler = (loginInput) => {
     fetch('http://localhost:3000/api/v1/login/', {
@@ -37,39 +37,40 @@ class App extends React.Component{
     .then(resp => resp.json())
     .then(data => {
       localStorage.setItem("token", data.jwt);
-      localStorage.setItem("username", data.user.username);
-      localStorage.setItem("userId", data.user.id);
-      this.setState({user: data.user})
-      this.props.history.push('/dashboard')
+      this.setState({user: data.user, isLoggedIn: true})
+      console.log(this.state)
     })
+    .then(this.props.history.push('/dashboard'))
+    .catch(console.log)
+  }
+
+  logoutHandler = () => {
+    localStorage.removeItem('token')
+    this.setState({ user: {} })
+    this.props.history.push('/login')
+  }
+
+  clearLogin = () => {
+    localStorage.removeItem('token')
+    this.setState({ user: {} })
   }
 
   render() {
     return (
-      <Router>
+      <div>
         <Switch>
-        {this.state.user === "" ? (
-          <Route path="/login" render={() => {
-            return (
-              <div>
-                <Login user={this.state.user} setUser={this.setUser} loginHandler={this.loginHandler} />
-              </div>
-            )
-          }} />
-        ) : (
-          <Route path="/dashboard" render={() => {
-            return (
-              <div>
-                <Dashboard user={this.state.user} setUser={this.setUser} />
-              </div>
-            )
-          }} />)}
-          <Route path="/trips" component={TripList}/>
+        {this.state.isLoggedIn ? (
+             <Route path="/dashboard" render={() => <Dashboard user={this.state.user}  />
+            } />
+              ) : (
+          <Route path="/login" render={() => <Login loginHandler={this.loginHandler} clearLogin={this.clearLogin} logoutHandler={this.logoutHandler}/>
+          } />
+              )})
         </Switch>
-      </Router>
+      </div>
       );
     }
   }
 
 
-export default App
+export default withRouter(App)
