@@ -1,8 +1,12 @@
 import React from 'react'
 
-function Trip(){
+function Trip(props){
+    console.log(props)
     return(
-        <h1>Trip card!</h1>
+        <div className="trip-card">
+            <h3>Caption: {props.trip.caption}</h3>
+            <img src={props.trip.cover_photo} alt="" />
+        </div>
     )
 }
 

@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Switch, withRouter } from 'react-router
 import Login from './Login'
 import Signup from './Signup'
 import Dashboard from './Dashboard'
-import TripList from './Container/TripList'
+import NavBar from './Component/NavBar'
 // import Home from './Home'
 
 
@@ -44,6 +44,26 @@ class App extends React.Component{
     .catch(console.log)
   }
 
+  signUpHandler = (userData) => {
+    fetch('http://localhost:3000/api/v1/users', {
+      method: 'POST',
+      headers: {
+        "content-type": "application/json",
+        accepts: "application/json"
+      },
+      body: JSON.stringify({ user: userData })
+    })
+    .then(resp => resp.json())
+    .then(newUser => {
+      localStorage.setItem("token", newUser.jwt);
+      this.setState({ user: newUser.user, isLoggedIn: true })
+    })
+    .then(this.props.history.push('/dashboard'))
+    .catch(console.log)
+  }
+  
+
+
   logoutHandler = () => {
     localStorage.removeItem('token')
     this.setState({ user: {} })
@@ -60,12 +80,13 @@ class App extends React.Component{
       <div>
         <Switch>
         {this.state.isLoggedIn ? (
-             <Route path="/dashboard" render={() => <Dashboard user={this.state.user}  />
-            } />
-              ) : (
-          <Route path="/login" render={() => <Login loginHandler={this.loginHandler} clearLogin={this.clearLogin} logoutHandler={this.logoutHandler}/>
-          } />
-              )})
+            <Route path="/dashboard" render={() => <Dashboard user={this.state.user} logoutHandler={this.logoutHandler}/> }/>
+            ) : (
+            <Route path="/login" render={() => <Login loginHandler={this.loginHandler} clearLogin={this.clearLogin}/> }/>
+            )
+        };
+            <Route path="/signup" render={() => <Signup signUpHandler={this.signUpHandler}/> } />
+              )
         </Switch>
       </div>
       );

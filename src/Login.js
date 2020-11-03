@@ -34,8 +34,7 @@ class Login extends React.Component{
                         <input type="submit" value="Log In"/>
                     </form>
                 </div>
-                <p>New to this page? <button>Sign Up</button></p>
-                <button  onClick={() => this.props.logoutHandler()}>Logout</button>
+                <p>New to this page? <button onClick={this.props.signUpHandler}>Sign Up</button></p>
             </div>
         )
     }
