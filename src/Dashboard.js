@@ -1,27 +1,39 @@
 import React from 'react'
 import TripList from './Container/TripList'
-import { withRouter } from 'react-router-dom'
+import { withRouter, NavLink } from 'react-router-dom'
 
 class Dashboard extends React.Component{
-   
-
-    // handleLogout = (e) => {
-    //     console.log(this.props)
-    //     e.preventDefault();
-    //     this.props.setUser(null);
-    //     this.props.history.push("/login");
-    // };
-
     
+    state = {
+        user: {}
+    }
+
+//      componentDidMount() {
+//     const token = localStorage.getItem("token")
+//     if (token){
+//     fetch("https://localhost:3000/api/v1/profile", {
+//       method: "GET",
+//       headers: { Authorization: `Bearer ${token}` },
+//     })
+//     .then(resp => resp.json())
+//     .then(data => this.setState({ user: data.user}))
+//     } else {
+//       this.props.history.push("/login")
+//     }
+//   }
     
     render(){
+        console.log(this.props)
         return(
     <div className="user-card">
-        <h1>Welcome {this.props.user.username}</h1>
+        <h1>Welcome, {this.props.user.username}!</h1>
         <img src={this.props.user.avatar} alt={this.props.user.username} />
         <button onClick={this.props.logoutHandler}>Log Out</button>
         <div className="trip-list">
-            <h1>Your trips:</h1>
+            <NavLink to="/dashboard/trips" >
+                <h1>My trips:</h1>
+            </NavLink>
+
             <TripList user={this.props.user} />
         </div>
     </div>

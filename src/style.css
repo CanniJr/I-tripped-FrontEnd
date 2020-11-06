@@ -1,0 +1,39 @@
+html{
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: url(bg.jpg) no-repeat;
+    background-size: cover;
+}
+
+.navbar{
+    background-color: transparent;
+
+}
+
+.login{
+    width: 280px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: rgb(223, 208, 208)
+}
+
+.login h1{
+    float: left;
+    font-size: 40px;
+    color: cyan;
+    border-bottom: 6px solid #4caf;
+    margin-bottom: 50px;
+    padding: 13px 0
+}
+
+.textbox{
+    width: 100%;
+    overflow: hidden;
+    font-size: 20px;
+    padding: 8px 0;
+    margin: 8px 0;
+    border-bottom: 1px solid #4caf;
+}

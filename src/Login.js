@@ -1,5 +1,6 @@
 import React from 'react'
-import { withRouter } from 'react-router-dom'
+import { withRouter, NavLink } from 'react-router-dom'
+import './style.css'
 
 class Login extends React.Component{
 
@@ -25,16 +26,22 @@ class Login extends React.Component{
         return(
             <div className="login">
                 <h1>I Tripped!</h1>
-                <div className="Login-form">
+                <div className="login-form">
                     <form onSubmit={this.submitHandler}>
-                        <label>Username:</label>
-                        <input type="text" name="username" value={this.state.username} onChange={this.changeHandler} ></input>
-                        <label>Password:</label>
-                        <input type="password" name="password" value={this.state.password} onChange={this.changeHandler}></input>
+                        <div className="textbox">
+                        <input type="text" name="username" value={this.state.username} onChange={this.changeHandler} placeholder="Username"></input>
+                        </div>
+                        <div className="textbox">
+                        <input type="password" name="password" value={this.state.password} onChange={this.changeHandler} placeholder="Password"></input>
+                        </div>
                         <input type="submit" value="Log In"/>
                     </form>
                 </div>
-                <p>New to this page? <button onClick={this.props.signUpHandler}>Sign Up</button></p>
+                <p>New to this page?
+                    <NavLink to="/signup">
+                     <button onClick={this.props.signUpHandler}>Sign Up</button>
+                    </NavLink>
+                </p>
             </div>
         )
     }

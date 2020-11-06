@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter as Router, Route, Switch, withRouter } from 'react-router-dom'
+import { Route, Switch, withRouter } from 'react-router-dom'
 import Login from './Login'
 import Signup from './Signup'
 import Dashboard from './Dashboard'
@@ -16,20 +16,17 @@ import NavBar from './Component/NavBar'
 class App extends React.Component{
 
   state = {
-    user: "",
+    user: null,
     isLoggedIn: false
   } 
 
-  // setUser = inputUser => {
-  //   this.setState({user: inputUser})
-  // }
 
   loginHandler = (loginInput) => {
     fetch('http://localhost:3000/api/v1/login/', {
       method: "POST",
       headers: {
         "content-type": "application/json",
-        accepts: "application/json"
+        "Accepts": "application/json"
       },
       body: JSON.stringify({ user: loginInput
       })
@@ -37,10 +34,9 @@ class App extends React.Component{
     .then(resp => resp.json())
     .then(data => {
       localStorage.setItem("token", data.jwt);
-      this.setState({user: data.user, isLoggedIn: true})
-      console.log(this.state)
+      this.setState({user: data.user, isLoggedIn: true}, 
+        () => this.props.history.push("/dashboard"))
     })
-    .then(this.props.history.push('/dashboard'))
     .catch(console.log)
   }
 
@@ -49,46 +45,43 @@ class App extends React.Component{
       method: 'POST',
       headers: {
         "content-type": "application/json",
-        accepts: "application/json"
+        "Accepts": "application/json"
       },
       body: JSON.stringify({ user: userData })
     })
     .then(resp => resp.json())
     .then(newUser => {
       localStorage.setItem("token", newUser.jwt);
-      this.setState({ user: newUser.user, isLoggedIn: true })
+      this.setState({ user: newUser.user})
     })
     .then(this.props.history.push('/dashboard'))
     .catch(console.log)
   }
   
 
-
   logoutHandler = () => {
-    localStorage.removeItem('token')
-    this.setState({ user: {} })
-    this.props.history.push('/login')
+    localStorage.removeItem("token")
+    this.setState({ user: null })
+    this.props.history.push("/login")
   }
 
-  clearLogin = () => {
-    localStorage.removeItem('token')
-    this.setState({ user: {} })
-  }
 
   render() {
     return (
-      <div>
+      <>
+        <NavBar user={this.state.user} logoutHandler={this.logoutHandler} />
+        
         <Switch>
-        {this.state.isLoggedIn ? (
+        {this.state.user ? (
             <Route path="/dashboard" render={() => <Dashboard user={this.state.user} logoutHandler={this.logoutHandler}/> }/>
             ) : (
-            <Route path="/login" render={() => <Login loginHandler={this.loginHandler} clearLogin={this.clearLogin}/> }/>
+            <Route path="/login" exact component={() => <Login loginHandler={this.loginHandler} /> }/>
             )
         };
             <Route path="/signup" render={() => <Signup signUpHandler={this.signUpHandler}/> } />
               )
         </Switch>
-      </div>
+      </>
       );
     }
   }

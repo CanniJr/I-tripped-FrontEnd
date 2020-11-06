@@ -10,11 +10,15 @@ const link = {
     color: 'white',
   }
 
-function NavBar() {
+function NavBar(props) {
     return(
         <div className="navbar">
             <NavLink to="/signup" exact style={link} activeStyle={{background: 'darkblue'}}>Sign Up</NavLink>
-
+            <NavLink to="/dashboard/trips" exact style={link} activeStyle={{background: 'darkblue'}}>Trips</NavLink>
+            <NavLink to="/dashboard" exact style={link} activeStyle={{background: 'darkblue'}} >Dashboard</NavLink>
+            {props.user ? <button exact style={link} activestyle={{background: 'darkblue'}} onClick={props.logoutHandler}>Logout</button> :
+            <NavLink to="/login" exact style={link} activeStyle={{background: 'darkblue'}}>Login</NavLink>
+            }
         </div>
 
     )
