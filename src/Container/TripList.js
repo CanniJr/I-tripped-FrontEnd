@@ -72,12 +72,8 @@ class TripList extends React.Component {
                 {this.state.trips.length === 0 ? <h3>loading trips</h3> : 
                      <> 
                         <Switch>
-                        <Route path ="/dashboard/trips/:id" render={({ match }) => {
-                            let id = parseInt(match.params.id)
-                            let foundTrip = this.state.trips.find((trip) => trip.id === id)
-                            return <Trip trip={foundTrip} deleteHandler={this.deleteHandler}/>
-                        }}/>
-                        <Route path="/dashboard/trips" render={() => {
+                        
+                        <Route path="/trips" render={() => {
                             return(
                             <div>
                             {this.renderTrips()}
@@ -100,3 +96,9 @@ class TripList extends React.Component {
 }
 
 export default withRouter (TripList)
+
+{/* <Route path ="/dashboard/trips/:id" render={({ match }) => {
+                            let id = parseInt(match.params.id)
+                            let foundTrip = this.state.trips.find((trip) => trip.id === id)
+                            return <Trip trip={foundTrip} deleteHandler={this.deleteHandler}/>
+                        }}/> */}

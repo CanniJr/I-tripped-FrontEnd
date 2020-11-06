@@ -1,6 +1,6 @@
 import React from 'react'
 import TripList from './Container/TripList'
-import { withRouter, NavLink } from 'react-router-dom'
+import { Route, withRouter, NavLink, Redirect } from 'react-router-dom'
 
 class Dashboard extends React.Component{
     
@@ -25,18 +25,23 @@ class Dashboard extends React.Component{
     render(){
         console.log(this.props)
         return(
-    <div className="user-card">
-        <h1>Welcome, {this.props.user.username}!</h1>
-        <img src={this.props.user.avatar} alt={this.props.user.username} />
-        <button onClick={this.props.logoutHandler}>Log Out</button>
-        <div className="trip-list">
-            <NavLink to="/dashboard/trips" >
-                <h1>My trips:</h1>
-            </NavLink>
+            <>
+            {this.props.user?
 
-            <TripList user={this.props.user} />
-        </div>
-    </div>
+            <div className="user-card">
+                <h1>Welcome, {this.props.user.username}!</h1>
+                <img src={this.props.user.avatar} alt={this.props.user.username} />
+                <button onClick={this.props.logoutHandler}>Log Out</button>
+                <div className="trip-list">
+                    <NavLink to="/trips" >
+                        <h3>My trips</h3>
+                    </NavLink>
+                </div>
+            </div>
+            : 
+            <Redirect to="/login" />
+        }
+            </>
 
         )
     }

@@ -4,7 +4,8 @@ import Login from './Login'
 import Signup from './Signup'
 import Dashboard from './Dashboard'
 import NavBar from './Component/NavBar'
-// import Home from './Home'
+import TripList from './Container/TripList'
+import Home from './Home'
 
 
 
@@ -70,16 +71,12 @@ class App extends React.Component{
     return (
       <>
         <NavBar user={this.state.user} logoutHandler={this.logoutHandler} />
-        
         <Switch>
-        {this.state.user ? (
+            <Route exact path="/" component={Home}/>
             <Route path="/dashboard" render={() => <Dashboard user={this.state.user} logoutHandler={this.logoutHandler}/> }/>
-            ) : (
             <Route path="/login" render={() => <Login loginHandler={this.loginHandler} /> }/>
-            )
-        };
             <Route path="/signup" render={() => <Signup signUpHandler={this.signUpHandler}/> } />
-              )
+            <Route path="/trips" render={() => <TripList user={this.state.user}/>}/>
         </Switch>
       </>
       );
