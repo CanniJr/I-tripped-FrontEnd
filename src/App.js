@@ -75,7 +75,7 @@ class App extends React.Component{
         {this.state.user ? (
             <Route path="/dashboard" render={() => <Dashboard user={this.state.user} logoutHandler={this.logoutHandler}/> }/>
             ) : (
-            <Route path="/login" exact component={() => <Login loginHandler={this.loginHandler} /> }/>
+            <Route path="/login" render={() => <Login loginHandler={this.loginHandler} /> }/>
             )
         };
             <Route path="/signup" render={() => <Signup signUpHandler={this.signUpHandler}/> } />
