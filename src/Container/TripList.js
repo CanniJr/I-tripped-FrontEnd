@@ -61,8 +61,10 @@ class TripList extends React.Component {
 
 
     renderTrips = () => {
-        return this.state.trips.map(tripObj => <Trip key={tripObj.id} trip={tripObj} deleteHandler={this.deleteHandler}/>)
-    }
+                                                 // if user.id is not the same as trip.user.id, it will not show any trips \\
+        return (this.state.trips.map(tripObj => (this.props.user.id === tripObj.user.id ? <Trip key={tripObj.id} trip={tripObj} deleteHandler={this.deleteHandler} user={this.props.user}/>
+            : null ))
+        )}
 
     render(){
         return(
@@ -72,14 +74,12 @@ class TripList extends React.Component {
                 {this.state.trips.length === 0 ? <h3>loading trips</h3> : 
                      <> 
                         <Switch>
-                        
                         <Route path="/trips" render={() => {
                             return(
                             <div>
                             {this.renderTrips()}
                             </div>
                             )
-    
                         }}/>
                         </Switch>
                         <button onClick={this.formHandler}>New Trip</button>
@@ -97,8 +97,8 @@ class TripList extends React.Component {
 
 export default withRouter (TripList)
 
-{/* <Route path ="/dashboard/trips/:id" render={({ match }) => {
+/* <Route path ="/dashboard/trips/:id" render={({ match }) => {
                             let id = parseInt(match.params.id)
                             let foundTrip = this.state.trips.find((trip) => trip.id === id)
                             return <Trip trip={foundTrip} deleteHandler={this.deleteHandler}/>
-                        }}/> */}
+                        }}/> */

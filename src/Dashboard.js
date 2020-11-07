@@ -23,11 +23,9 @@ class Dashboard extends React.Component{
 //   }
     
     render(){
-        console.log(this.props)
         return(
             <>
             {this.props.user?
-
             <div className="user-card">
                 <h1>Welcome, {this.props.user.username}!</h1>
                 <img src={this.props.user.avatar} alt={this.props.user.username} />
