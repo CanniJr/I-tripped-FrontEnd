@@ -20,9 +20,10 @@ class NewTripForm extends React.Component{
             <form className="new-trip-form" onSubmit={this.submitHandler}>
                 <h2>Create Trip</h2>
                 <label>Caption</label>
-                <input type="text" name="caption" value={this.state.caption} onChange={this.changeHandler}></input>
+                <input type="text" name="caption" value={this.state.caption} onChange={this.changeHandler}/>
                 <label>Trip photo</label>
                 <input type="text" name="cover_photo" value={this.state.cover_photo} onChange={this.changeHandler} />
+                
                 <input type="submit" value="Create Trip" />
             </form>
 

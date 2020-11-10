@@ -2,11 +2,13 @@ import React from 'react'
 import Trip from '../Component/Trip'
 import { withRouter, Route, Switch, Redirect } from 'react-router-dom'
 import NewTripForm from '../Component/NewTripForm'
+import { Map, TileLayer, Marker } from 'react-leaflet'
+import '../Component/TripCard.css'
+import '../App.css'
 
 class TripList extends React.Component {
 
     state = {
-        user: null,
         trips: [],
         clicked: false
      }
@@ -24,11 +26,17 @@ class TripList extends React.Component {
         })
     }
 
-    submitHandler = (tripObj) => {
+    submitHandler = (trip) => {
+        let tripObj = {
+            user_id: this.props.user.id,
+            caption: trip.caption,
+            cover_photo: trip.cover_photo
+        }
+
         fetch("http://localhost:3000/api/v1/trips/", {
             method: "POST",
             headers: {
-                "Authorization": `Bearer ${localStorage.getItem("token")}`,
+                Authorization: ` Bearer ${localStorage.getItem("token")}`,
                 "content-type": "application/json",
                 "Accepts": "application/json"
             },
@@ -42,18 +50,7 @@ class TripList extends React.Component {
         .catch(console.log)
     }
 
-    deleteHandler = (id) => {
-        fetch(`http://localhost:3000/api/v1/trips/${id}`, {
-            method: "DELETE",
-            headers: { 
-                "Authorization": `Bearer ${localStorage.getItem("token")}`,
-                "content-type": "application/json",
-                "Accepts": "application/json"
-            }})
-        .then(resp => resp.json())
-        this.setState({ trips: this.state.trips.filter(trip => trip.id !== id)})
-        console.log(this.state)
-    }
+    
 
     formHandler = () => {
         this.setState((prevState) => ({clicked: !prevState.clicked}))
@@ -67,38 +64,62 @@ class TripList extends React.Component {
         )}
 
     render(){
-        return(
-            <>
-             {this.props.user ? 
-                <>
-                {this.state.trips.length === 0 ? <h3>loading trips</h3> : 
-                     <> 
-                        <Switch>
-                        <Route path="/trips" render={() => {
-                            return(
-                            <div>
-                            {this.renderTrips()}
-                            </div>
-                            )
-                        }}/>
-                        </Switch>
-                        <button onClick={this.formHandler}>New Trip</button>
-                        {this.state.clicked ? <NewTripForm submitHandler={this.submitHandler} /> : null }
-                    </>
-                } 
-                </>
 
-             :
-         
-        <Redirect to="/login" />
-     } </> )
+        const latitude = 40.712776
+        const longitude = -74.005974
+        const tileLayerURL = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        const tileLayerAtt = '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+
+        return(
+            <div className='cards'>
+                <div className="cards_container">
+                    <div className="cards_wrapper">
+                        <>
+                        {this.props.user ? 
+                            <>
+                            {this.state.trips.length === 0 ? <h3>loading trips</h3> : 
+                                <> 
+                                    <Switch>
+                                    <Route path ="/trips/:id" render={({ match }) => {
+                                        let id = parseInt(match.params.id)
+                                        let foundTrip = this.state.trips.find((trip) => trip.id === id)
+                                        return (
+                                            <>
+                                                <Trip trip={foundTrip} deleteHandler={this.deleteHandler} />
+                                                <Map center={[latitude, longitude]} zoom={13}>
+                                                    <TileLayer 
+                                                    url={tileLayerURL}
+                                                    attribution={tileLayerAtt}
+                                                    />
+                                                </Map>
+                                            </>
+                                        )
+                                    }}/>
+                                    <Route path="/trips" render={() => {
+                                        return(
+                                            <>
+                                                <h1>Trips</h1>
+                                                <ul className="cards_items">
+                                                {this.renderTrips()}
+                                                </ul>
+                                            </>
+                                         )
+                                        }}/>
+                                    </Switch>
+                                    {this.state.clicked ? <NewTripForm submitHandler={this.submitHandler} /> : null }
+                                    <button onClick={this.formHandler}>New Trip</button>
+                                </>
+                            } 
+                            </>
+            
+                        :
+                        <Redirect to="/login" />
+                        } </> 
+                    </div>
+                </div>
+         </div>
+        )
     }
 }
 
 export default withRouter (TripList)
-
-/* <Route path ="/dashboard/trips/:id" render={({ match }) => {
-                            let id = parseInt(match.params.id)
-                            let foundTrip = this.state.trips.find((trip) => trip.id === id)
-                            return <Trip trip={foundTrip} deleteHandler={this.deleteHandler}/>
-                        }}/> */

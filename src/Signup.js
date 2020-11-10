@@ -23,12 +23,16 @@ class Signup extends React.Component{
             <div className="signup">
                 <div className="signup-form">
                     <form onSubmit={this.submitHandler}>
-                        <label>Username:</label>
-                        <input type="text" name="username" value={this.state.username} onChange={this.changeHandler} ></input><br></br>
-                        <label>Password:</label>
-                        <input type="password" name="password" value={this.state.password} onChange={this.changeHandler}></input><br></br>
-                        <label>Confirm Password:</label>
-                        <input type="password" name="password_confirmation" value={this.state.password_confirmation} onChange={this.changeHandler}></input><br></br>
+                        <h3>Sign up</h3>
+                        <div className="textbox"> 
+                        <input type="text" name="username" value={this.state.username} onChange={this.changeHandler} placeholder="Create Username"></input><br></br>
+                        </div>
+                        <div className="textbox">
+                        <input type="password" name="password" value={this.state.password} onChange={this.changeHandler} placeholder="Create Password"></input><br></br>
+                        </div>
+                        <div className="texbox">
+                        <input type="password" name="password_confirmation" value={this.state.password_confirmation} onChange={this.changeHandler} placeholder="Confirm Password"></input><br></br>
+                        </div>
                         <input type="submit" value="Sign Up"/>
                     </form>
                     <p>Already Signed up?

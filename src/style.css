@@ -9,7 +9,8 @@ html{
 
 }
 
-.login{
+.login,
+.signup {
     width: 280px;
     position: absolute;
     top: 50%;
@@ -21,6 +22,15 @@ html{
 .login h1{
     float: left;
     font-size: 40px;
+    color: cyan;
+    border-bottom: 6px solid #4caf;
+    margin-bottom: 50px;
+    padding: 13px 0
+}
+
+.signup h3{
+    float: left;
+    font-size: 30px;
     color: cyan;
     border-bottom: 6px solid #4caf;
     margin-bottom: 50px;
