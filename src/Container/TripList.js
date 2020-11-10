@@ -2,6 +2,7 @@ import React from 'react'
 import Trip from '../Component/Trip'
 import { withRouter, Route, Switch, Redirect } from 'react-router-dom'
 import NewTripForm from '../Component/NewTripForm'
+import EditTripForm from '../Component/EditTripForm'
 import { Map, TileLayer, Marker } from 'react-leaflet'
 import '../Component/TripCard.css'
 import '../App.css'
@@ -50,6 +51,27 @@ class TripList extends React.Component {
         .catch(console.log)
     }
 
+    deleteHandler = () => {
+        let id = window.location.pathname.split('/')[2]
+        fetch(`http://localhost:3000/api/v1/trips/${id}`, {
+            method: "DELETE",
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+            }       
+         })
+        .then(resp => resp.json())
+        .then(data => {
+            let newTrips = [...this.state.trips, data]
+            this.setState({ trips: newTrips })
+
+            // if(data.success){
+            //     this.props.history.push("/trips")
+            // } else {
+            //     console.log(data.error)
+            // }
+        })
+    }
+
     
 
     formHandler = () => {
@@ -92,6 +114,7 @@ class TripList extends React.Component {
                                                     attribution={tileLayerAtt}
                                                     />
                                                 </Map>
+                                                <EditTripForm trip={this.state.trips} />
                                             </>
                                         )
                                     }}/>

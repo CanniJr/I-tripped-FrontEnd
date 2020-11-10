@@ -4,26 +4,8 @@ import './TripCard.css'
 
 class Trip extends React.Component{
 
-    // deleteHandler = () => {
-    //     this.props.deleteHandler(this.props.trip)
-    // }
-
     deleteHandler = () => {
-        let id = window.location.pathname.split('/')[2]
-        fetch(`http://localhost:3000/api/v1/trips/${id}`, {
-            method: "DELETE",
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem("token")}`,
-            }       
-         })
-        .then(resp => resp.json())
-        .then(data => {
-            if(data.success){
-                this.props.history.push("/trips")
-            } else {
-                console.log(data.error)
-            }
-        })
+        this.props.deleteHandler(this.props.trip)
     }
 
     
