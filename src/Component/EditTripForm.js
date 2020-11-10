@@ -21,7 +21,7 @@ class EditTripForm extends React.Component{
     }
 
     toDashboard = () => {
-        this.props.history.push("/dashboard")
+        this.props.history.push("/trips")
     }
 
     render(){

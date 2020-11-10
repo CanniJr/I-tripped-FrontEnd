@@ -48,11 +48,12 @@ class TripList extends React.Component {
             let newTrips = [...this.state.trips, newTrip]
             this.setState({ trips: newTrips }, () => console.log(this.state.trips))
         })
+        .then(this.props.history.push('/dashboard'))
         .catch(console.log)
     }
 
-    deleteHandler = () => {
-        let id = window.location.pathname.split('/')[2]
+    deleteHandler = (id) => {
+        // let id = window.location.pathname.split('/')[2]
         fetch(`http://localhost:3000/api/v1/trips/${id}`, {
             method: "DELETE",
             headers: {
@@ -60,17 +61,27 @@ class TripList extends React.Component {
             }       
          })
         .then(resp => resp.json())
-        .then(data => {
-            let newTrips = [...this.state.trips, data]
-            this.setState({ trips: newTrips })
-
+        this.setState({ trips: this.state.trips.filter(trip => trip.id !== id)})
+        console.log(this.state)
             // if(data.success){
             //     this.props.history.push("/trips")
             // } else {
             //     console.log(data.error)
             // }
-        })
     }
+
+    // deleteHandler = (id) => {
+    //     fetch(`http://localhost:3000/api/v1/trips/${id}`, {
+    //         method: "DELETE",
+    //         headers: { 
+    //             "Authorization": `Bearer ${localStorage.getItem("token")}`,
+    //             "content-type": "application/json",
+    //             "Accepts": "application/json"
+    //         }})
+    //     .then(resp => resp.json())
+    //     this.setState({ trips: this.state.trips.filter(trip => trip.id !== id)})
+    //     console.log(this.state)
+    // }
 
     
 
@@ -114,7 +125,7 @@ class TripList extends React.Component {
                                                     attribution={tileLayerAtt}
                                                     />
                                                 </Map>
-                                                <EditTripForm trip={this.state.trips} />
+                                                <EditTripForm trip={foundTrip} />
                                             </>
                                         )
                                     }}/>

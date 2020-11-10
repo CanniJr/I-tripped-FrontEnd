@@ -28,20 +28,23 @@ class Dashboard extends React.Component{
             {this.props.user ? 
                 <>
                     {this.state.user === null ? <h1>Loading</h1> : 
-                    <div className="user-card">
-                        <h1>Welcome, {this.props.user.username}!</h1>
-                        <p>{this.props.user.bio}</p>
-                        <img src={this.props.user.avatar} alt={this.props.user.username} />
-                        <button onClick={this.props.logoutHandler}>Log Out</button>
-                        <div className="trip-list">
-                            <NavLink to="/trips" >
-                                <h3>My trips</h3>
-                            </NavLink>
-                            <NavLink to="/profile_edit">
-                                <h3>Edit Profile</h3>
-                            </NavLink>
+                    <>
+                        <div className="welcome"> 
+                            <h1>Welcome, {this.props.user.username}!</h1>
                         </div>
-                    </div>
+                        <div className="user-card">
+                            <img src={this.props.user.avatar} alt={this.props.user.username} />
+                            <p>{this.props.user.bio}</p>
+                            <div className="trip-list">
+                                <NavLink to="/trips" >
+                                    <h3>My trips</h3>
+                                </NavLink>
+                                <NavLink to="/profile_edit">
+                                    <h3>Edit Profile</h3>
+                                </NavLink>
+                            </div>
+                        </div>
+                    </>
                     }
                 </>
             : 

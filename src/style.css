@@ -9,6 +9,22 @@ html{
 
 }
 
+.card {
+    width: 300px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 5px;
+    margin-bottom: 15px;
+}
+
+.card-text {
+    padding-left: 15px;
+}
+
+.card-img {
+    width: 100%;
+}
+
 .login,
 .signup {
     width: 280px;

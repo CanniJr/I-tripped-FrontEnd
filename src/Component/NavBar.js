@@ -51,7 +51,7 @@ function NavBar(props) {
                             </li>
                             {props.user ? 
                             <li className="nav-item" onClick={props.logoutHandler} >
-                                <p onClick={closeMenu} className="nav-item">Logout</p>
+                                <p onClick={closeMenu} className="nav-links">Logout</p>
                                 </li> :
                             <li className="nav-item">
                                 <NavLink to="/login" className="nav-links" onClick={closeMenu}>Login</NavLink>
