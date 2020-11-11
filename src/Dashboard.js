@@ -33,15 +33,24 @@ class Dashboard extends React.Component{
                             <h1>Welcome, {this.props.user.username}!</h1>
                         </div>
                         <div className="user-card">
-                            <img src={this.props.user.avatar} alt={this.props.user.username} />
-                            <p>{this.props.user.bio}</p>
-                            <div className="trip-list">
-                                <NavLink to="/trips" >
-                                    <h3>My trips</h3>
-                                </NavLink>
-                                <NavLink to="/profile_edit">
-                                    <h3>Edit Profile</h3>
-                                </NavLink>
+                            <div className="upper-container">
+                                <div className="image-container">
+                                    <img src={this.props.user.avatar} alt={this.props.user.username} />
+                                </div>
+                                <div className="lower-container">
+                                    <h3>{this.props.user.username}</h3>
+                                    <p>{this.props.user.age}</p>
+                                    <p>{this.props.user.email}</p>
+                                    <p>{this.props.user.bio}</p>
+                                </div>
+                                <div className="trip-list">
+                                    <NavLink to="/trips" >
+                                        <h3>My trips</h3>
+                                    </NavLink>
+                                    <NavLink to="/profile_edit">
+                                        <h3>Edit Profile</h3>
+                                    </NavLink>
+                                </div>
                             </div>
                         </div>
                     </>

@@ -5,7 +5,7 @@ import '../style.css'
 class Trip extends React.Component{
 
     deleteHandler = () => {
-        this.props.deleteHandler(this.props.trip.id)
+        this.props.deleteHandler(this.props.trip)
     }
 
     

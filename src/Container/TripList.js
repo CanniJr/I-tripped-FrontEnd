@@ -52,14 +52,19 @@ class TripList extends React.Component {
         .catch(console.log)
     }
 
-    deleteHandler = (id) => {
-        // let id = window.location.pathname.split('/')[2]
+    deleteHandler = (tripObj) => {
+        let id = tripObj.id
         fetch(`http://localhost:3000/api/v1/trips/${id}`, {
             method: "DELETE",
             headers: {
                 Authorization: `Bearer ${localStorage.getItem("token")}`,
-            }       
-         })
+                "content-type": "application/json",
+                "Accepts": "application/json"
+            },
+            body: JSON.stringify({
+                trip: tripObj
+            })
+        })
         .then(resp => resp.json())
         this.setState({ trips: this.state.trips.filter(trip => trip.id !== id)})
         console.log(this.state)
@@ -98,8 +103,7 @@ class TripList extends React.Component {
 
     render(){
 
-        const latitude = 40.712776
-        const longitude = -74.005974
+        const positionCor = [40.712776, -74.005974]
         const tileLayerURL = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         const tileLayerAtt = '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
 
@@ -119,13 +123,15 @@ class TripList extends React.Component {
                                         return (
                                             <>
                                                 <Trip trip={foundTrip} deleteHandler={this.deleteHandler} />
-                                                <Map center={[latitude, longitude]} zoom={13}>
+                                                <Map center={positionCor} zoom={13}>
+                                                    <Marker position={positionCor} > 
                                                     <TileLayer 
                                                     url={tileLayerURL}
                                                     attribution={tileLayerAtt}
                                                     />
+                                                    </Marker>
                                                 </Map>
-                                                <EditTripForm trip={foundTrip} />
+                                                {/* <EditTripForm trip={foundTrip} /> */}
                                             </>
                                         )
                                     }}/>

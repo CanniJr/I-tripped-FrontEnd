@@ -25,6 +25,12 @@ html{
     width: 100%;
 }
 
+.user-card {
+    width: 300px;
+    
+}
+
+
 .login,
 .signup {
     width: 280px;
