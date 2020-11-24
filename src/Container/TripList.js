@@ -3,9 +3,12 @@ import Trip from '../Component/Trip'
 import { withRouter, Route, Switch, Redirect } from 'react-router-dom'
 import NewTripForm from '../Component/NewTripForm'
 import EditTripForm from '../Component/EditTripForm'
-import { Map, TileLayer, Marker } from 'react-leaflet'
+import { Map, TileLayer, Marker, Popup, Tooltip, Polyline } from 'react-leaflet'
+import AutoSearch from 'react-leaflet-google-places-searchbox';
 import '../Component/TripCard.css'
 import '../App.css'
+
+
 
 class TripList extends React.Component {
 
@@ -67,6 +70,7 @@ class TripList extends React.Component {
         })
         .then(resp => resp.json())
         this.setState({ trips: this.state.trips.filter(trip => trip.id !== id)})
+        .then(this.props.history.push('/dashboard'))
         console.log(this.state)
             // if(data.success){
             //     this.props.history.push("/trips")
@@ -103,9 +107,11 @@ class TripList extends React.Component {
 
     render(){
 
-        const positionCor = [40.712776, -74.005974]
+        const positionCor = [[40.712776, -74.005974], [42.443962, -76.501884], [42.910450, -76.862400] ]
         const tileLayerURL = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         const tileLayerAtt = '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+
+        const redOptions = { color: 'red' }
 
         return(
             <div className='cards'>
@@ -123,13 +129,22 @@ class TripList extends React.Component {
                                         return (
                                             <>
                                                 <Trip trip={foundTrip} deleteHandler={this.deleteHandler} />
-                                                <Map center={positionCor} zoom={13}>
-                                                    <Marker position={positionCor} > 
+                                                <Map center={positionCor[0]} zoom={6}>
                                                     <TileLayer 
                                                     url={tileLayerURL}
                                                     attribution={tileLayerAtt}
                                                     />
+                                                    <Marker position={positionCor[0]} > 
+                                                        <Tooltip>New York, NY</Tooltip>
                                                     </Marker>
+                                                    <Marker position={positionCor[1]}>
+                                                        <Tooltip>Ithaca, NY</Tooltip>
+                                                    </Marker>
+                                                    <Marker position={positionCor[2]}>
+                                                        <Tooltip>Virginia, NY</Tooltip>
+                                                    </Marker>
+                                                    <Polyline pathOptions={redOptions} positions={positionCor} />
+                    
                                                 </Map>
                                                 {/* <EditTripForm trip={foundTrip} /> */}
                                             </>

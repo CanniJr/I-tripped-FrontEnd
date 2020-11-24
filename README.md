@@ -1,3 +1,10 @@
+# I tripped!
+
+App created using Create React App for the front end, with Ruby-on-Rails as backend
+
+Backend: https://github.com/CanniJr/I-tripped-BackEnd
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

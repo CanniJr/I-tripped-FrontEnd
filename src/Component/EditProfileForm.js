@@ -1,5 +1,7 @@
 import React from 'react'
 import { withRouter } from 'react-router-dom'
+import Form from 'react-bootstrap/Form'
+import Button from 'react-bootstrap/Button'
 
 class EditProfileForm extends React.Component{
     
@@ -30,22 +32,30 @@ class EditProfileForm extends React.Component{
         console.log(this.state)
         return(
             <div className="profile-edit">
-                <form className="profile-edit-form" onSubmit={this.submitHandler}>
-                    <label>Username: </label>
-                    <input type="text" name="username" value={this.state.username} onChange={this.changeHandler} placeholder={this.props.user.username} /><br></br>
-                    <label>Profile Photo:</label>
-                    <div className="preview-img">
-                        {this.state.avatar ? <img src={this.state.avatar} alt=""></img>: null}
-                    </div><br></br>
-                    <label>Photo Url : </label>
-                    <input type="text" name="avatar" value={this.state.avatar} onChange={this.changeHandler}/><br></br>
-                    <label>Age: </label>
-                    <input type="number" name="age" value={this.state.age} onChange={this.changeHandler} placeholder={this.props.user.age}/><br></br>
-                    <label>bio: </label>
-                    <input type="textarea" name="bio" value={this.state.bio} onChange={this.changeHandler} placeholder={this.props.user.bio}/><br></br>
-                    <input type="submit" value="Save Update" />
-                </form>
-                <button onClick={this.toDashboard}>Cancel edit</button>
+                <Form className="profile-edit-form" onSubmit={this.submitHandler}>
+                    <Form.Group controlId="formBasicName">
+                        <Form.Label>Username: </Form.Label>
+                        <Form.Control type="text" name="username" value={this.state.username} onChange={this.changeHandler} placeholder={this.props.user.username} /><br></br>
+                    </Form.Group>
+                        <label>Profile Photo:</label>
+                        <div className="preview-img">
+                            {this.state.avatar ? <img src={this.state.avatar} alt=""></img>: null}
+                        </div><br></br>
+                    <Form.Group>
+                        <Form.Label>Photo Url : </Form.Label>
+                        <Form.Control type="text" name="avatar" value={this.state.avatar} onChange={this.changeHandler}/><br></br>
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Label>bio: </Form.Label>
+                        <Form.Control type="textarea" name="bio" value={this.state.bio} onChange={this.changeHandler} placeholder={this.props.user.bio}/><br></br>
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Label>Age: </Form.Label>
+                        <Form.Control type="number" name="age" value={this.state.age} onChange={this.changeHandler} placeholder={this.props.user.age}/><br></br>
+                    </Form.Group>
+                        <Button type="submit">Save Update</Button>
+                </Form>
+                <Button onClick={this.toDashboard}>Cancel edit</Button>
             </div>
         )
     }

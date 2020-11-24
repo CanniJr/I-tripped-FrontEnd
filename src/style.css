@@ -4,10 +4,19 @@ html{
     font-family: Arial, Helvetica, sans-serif;
 }
 
+
+
 .navbar{
     background-color: transparent;
 
 }
+
+.trip-list h3 {
+    padding: 4px;
+    text-align: center;
+}
+
+
 
 .card {
     width: 300px;
@@ -26,10 +35,31 @@ html{
 }
 
 .user-card {
-    width: 300px;
-    
+    max-width: 300px;
+    margin: auto;
+    text-align: center;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    margin-top: 50px;
+    background-color: gray 
 }
 
+.welcome h1{
+    text-align: center;
+}
+
+.bio {
+    font-size: 18px;
+}
+
+.socials {
+    margin: 4px;
+    font-size: 22px;
+    color: blue
+}
+
+.socials:hover {
+    opacity: 0.7;
+}
 
 .login,
 .signup {

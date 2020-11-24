@@ -33,7 +33,7 @@ class Login extends React.Component{
                         <input type="text" name="username" value={this.state.username} onChange={this.changeHandler} placeholder="Username"></input>
                         </div>
                         <div className="textbox">
-                        <i class="fas fa-key"></i>
+                        <i className="fas fa-key"></i>
                         <input type="password" name="password" value={this.state.password} onChange={this.changeHandler} placeholder="Password"></input>
                         </div>
                         <input type="submit" value="Log In"/>
