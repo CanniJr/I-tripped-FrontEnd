@@ -1,32 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { Button } from './Button.js'
 import './NavBar.css'
+// import { Button } from './Button.js'
 
 
 
 function NavBar(props) {
 
     const [click, setClick] = useState(false);
-    const [button, setButton] = useState(true)
 
     const clickHandler = () => setClick(!click)
     const closeMenu = () => setClick(false)
 
-    const showButton = () => {
-        if(window.innerWidth <= 960) {
-            setButton(false);
-        } else {
-            setButton(true)
-        }
-    };
-
-    useEffect(() => {
-        showButton();
-    }, [])
-
-    window.addEventListener('resize', showButton);
-
+  
         return(
             <>
                 <nav className="navbar"> 

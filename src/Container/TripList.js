@@ -1,10 +1,8 @@
 import React from 'react'
-import Trip from '../Component/Trip'
 import { withRouter, Route, Switch, Redirect } from 'react-router-dom'
+import { Map, TileLayer, Marker, Tooltip, Polyline } from 'react-leaflet'
+import Trip from '../Component/Trip'
 import NewTripForm from '../Component/NewTripForm'
-import EditTripForm from '../Component/EditTripForm'
-import { Map, TileLayer, Marker, Popup, Tooltip, Polyline } from 'react-leaflet'
-import AutoSearch from 'react-leaflet-google-places-searchbox';
 import '../Component/TripCard.css'
 import '../App.css'
 

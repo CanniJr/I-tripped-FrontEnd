@@ -9,12 +9,6 @@ import Home from './Home'
 import EditProfileForm from './Component/EditProfileForm'
 
 
-
-// users endpoint : http://localhost:4000/api/v1/users
-// trips endpoint : http://localhost:4000/api/v1/trips
-// places endpoint : http://localhost:4000/api/v1/places
-
-
 class App extends React.Component{
 
   state = {
@@ -107,17 +101,17 @@ class App extends React.Component{
 
   render() {
     return (
-      <>
+      <div className='main'>
         <NavBar user={this.state.user} logoutHandler={this.logoutHandler} />
         <Switch>
-            <Route exact path="/" component={Home}/>
             <Route path="/dashboard" render={() => <Dashboard user={this.state.user} logoutHandler={this.logoutHandler}/> }/>
             <Route path="/login" render={() => <Login loginHandler={this.loginHandler} /> }/>
             <Route path="/signup" render={() => <Signup signUpHandler={this.signUpHandler}/> } />
             <Route path="/trips" render={() => <TripList user={this.state.user}/>}/>
             <Route path="/profile_edit" render={() => <EditProfileForm user={this.state.user} profileEditHandler={this.profileEditHandler}/>}/>
+            <Route path="/" component={Home}/>
         </Switch>
-      </>
+      </div>
       );
     }
   }
