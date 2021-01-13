@@ -13,7 +13,7 @@ class Trip extends React.Component{
     
     render(){
         return(
-            <>
+            <div>
                 <Card style={{ width: '18rem' }}>
                     <Card.Img variant="top" src={this.props.trip.cover_photo} />
                     <Card.Body>
@@ -24,15 +24,7 @@ class Trip extends React.Component{
                     </NavLink>
                     </Card.Body>
                 </Card>
-                {/* <div className="card">
-                    <NavLink to={`/trips/${this.props.trip.id}`}>
-                    <img className="card-img" src={this.props.trip.cover_photo} alt="" />
-                    </NavLink>
-                    <h3 className="card-text">{this.props.trip.caption}</h3>
-                    <button onClick={this.deleteHandler}>X</button>
-                    <br></br>
-                </div> */}
-            </>
+            </div>
             )
     }
 }

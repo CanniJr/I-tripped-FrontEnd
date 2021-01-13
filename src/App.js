@@ -104,11 +104,21 @@ class App extends React.Component{
       <div className='main'>
         <NavBar user={this.state.user} logoutHandler={this.logoutHandler} />
         <Switch>
-            <Route path="/dashboard" render={() => <Dashboard user={this.state.user} logoutHandler={this.logoutHandler}/> }/>
-            <Route path="/login" render={() => <Login loginHandler={this.loginHandler} /> }/>
-            <Route path="/signup" render={() => <Signup signUpHandler={this.signUpHandler}/> } />
-            <Route path="/trips" render={() => <TripList user={this.state.user}/>}/>
-            <Route path="/profile_edit" render={() => <EditProfileForm user={this.state.user} profileEditHandler={this.profileEditHandler}/>}/>
+          <Route path="/dashboard">
+            <Dashboard user={this.state.user} logoutHandler={this.logoutHandler} />
+          </Route>
+          <Route path="/login">
+            <Login loginHandler={this.loginHandler} />
+          </Route>
+          <Route path="/signup">
+            <Signup signUpHandler={this.signUpHandler}/>
+          </Route>
+          <Route path="/trips">
+            <TripList user={this.state.user}/>  
+          </Route>
+          <Route path="/profile_edit">
+            <EditProfileForm user={this.state.user} profileEditHandler={this.profileEditHandler}/>
+          </Route>
             <Route path="/" component={Home}/>
         </Switch>
       </div>

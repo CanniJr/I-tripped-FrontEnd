@@ -1,5 +1,6 @@
 import React from 'react'
 import { Route, withRouter, NavLink, Redirect } from 'react-router-dom'
+import './Dashboard.css'
 // import { Map, Marker, Popup } from 'react-leaflet'
 
 class Dashboard extends React.Component{
@@ -46,7 +47,11 @@ class Dashboard extends React.Component{
                                 <p className="bio">{this.props.user.bio}</p>
                                 <div className="socials">
                                     <i className="fab fa-github"></i>
+                                </div>
+                                <div className="socials">
                                     <i className="fab fa-linkedin-in"></i>
+                                </div>
+                                <div className="socials">
                                     <i className="fas fa-envelope-square"></i>
                                 </div>
                         </div>
